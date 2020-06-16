@@ -2,6 +2,7 @@ package com.daposeidonguy.teamsmod.common.storage;
 
 import com.daposeidonguy.teamsmod.TeamsMod;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
@@ -56,6 +57,7 @@ public class TeamDataManager extends WorldSavedData {
         newSettingsMap.put("disableAdvancementSync", false);
         newSettingsMap.put("enableFriendlyFire", false);
         teamSettingsMap.put(name, newSettingsMap);
+        teamChestMap.put(name, new InventoryEnderChest());
         markDirty();
     }
 
@@ -81,6 +83,7 @@ public class TeamDataManager extends WorldSavedData {
         }
         teamToUuidsMap.remove(name);
         teamSettingsMap.remove(name);
+        teamChestMap.remove(name);
         markDirty();
     }
 }

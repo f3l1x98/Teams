@@ -1,5 +1,7 @@
 package com.daposeidonguy.teamsmod.common.storage;
 
+import net.minecraft.inventory.InventoryEnderChest;
+
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -17,12 +19,12 @@ public class StorageHelper {
         return StorageHandler.teamToUuidsMap.get(teamName);
     }
 
-    public static boolean getTeamSetting(String teamName, String setting) {
-        return StorageHandler.teamSettingsMap.get(teamName).get(setting);
-    }
-
     public static Set<String> getTeamSet() {
         return StorageHandler.teamSettingsMap.keySet();
+    }
+
+    public static boolean getTeamSetting(String teamName, String setting) {
+        return StorageHandler.teamSettingsMap.get(teamName).get(setting);
     }
 
     public static void setTeamSetting(String teamName, String setting, boolean value) {
@@ -35,5 +37,16 @@ public class StorageHelper {
 
     public static boolean doesTeamExist(String teamName) {
         return teamName == null ? false : StorageHandler.teamToUuidsMap.containsKey(teamName);
+    }
+
+    public static InventoryEnderChest getTeamEnderChest(String team) {
+        if (doesTeamExist(team)) {
+            if (StorageHandler.teamChestMap.get(team) == null) {
+                StorageHandler.teamChestMap.put(team, new InventoryEnderChest());
+            }
+            return StorageHandler.teamChestMap.get(team);
+        } else {
+            return null;
+        }
     }
 }

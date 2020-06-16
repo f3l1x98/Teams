@@ -4,6 +4,7 @@ import com.daposeidonguy.teamsmod.client.ClientHelper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -17,6 +18,7 @@ public class StorageHandler {
     static final Map<UUID, String> uuidToTeamMap = new HashMap<>(); // UUID to storage Name
     static final Map<String, List<UUID>> teamToUuidsMap = new HashMap<>(); //Team name to list of UUIDs
     static final Map<String, Map<String, Boolean>> teamSettingsMap = new HashMap<>(); //Team name to map of settings
+    static final Map<String, InventoryEnderChest> teamChestMap = new HashMap<>();
 
     /* Syncs advancements of all players in a team */
     public static void syncPlayers(final String team, final EntityPlayerMP player) {
@@ -47,6 +49,11 @@ public class StorageHandler {
             for (NBTBase nbtBase : nbt.getTagList("Teams", Constants.NBT.TAG_COMPOUND)) {
                 NBTTagCompound teamTag = (NBTTagCompound) nbtBase;
                 String teamName = teamTag.getString("Team Name");
+                InventoryEnderChest inventoryEnderChest = new InventoryEnderChest();
+                if (teamTag.hasKey("Chest")) {
+                    inventoryEnderChest.loadInventoryFromNBT(teamTag.getTagList("Chest", Constants.NBT.TAG_COMPOUND));
+                    teamChestMap.put(teamName, inventoryEnderChest);
+                }
                 NBTTagList playersTag = teamTag.getTagList("Player List", Constants.NBT.TAG_COMPOUND);
                 if (playersTag.tagCount() == 0) {
                     continue;
@@ -63,6 +70,7 @@ public class StorageHandler {
         teamToUuidsMap.clear();
         uuidToTeamMap.clear();
         teamSettingsMap.clear();
+        teamChestMap.clear();
     }
 
     /* Reads team settings from NBT */
@@ -108,6 +116,10 @@ public class StorageHandler {
         for (String teamName : teamToUuidsMap.keySet()) {
             NBTTagCompound teamTag = new NBTTagCompound();
             teamTag.setString("Team Name", teamName);
+            if (teamChestMap.containsKey(teamName)) {
+                NBTTagList chestTag = teamChestMap.get(teamName).saveInventoryToNBT();
+                teamTag.setTag("Chest", chestTag);
+            }
             teamTag.setTag("Player List", writePlayers(teamName));
             teamTag.setTag("Settings", writeSettings(teamName));
             tagList.appendTag(teamTag);

@@ -63,3 +63,4 @@ teamsmod.keyaccept.desc=Aceptar la invitación del equipo
 teamsmod.keyswitch.desc=Cambiar la pestaña de chat
 teamsmod.keycompass.desc=Cambiar la superposición de la brújula
 teamsmod.badarguments=Argumentos perdidos o inválidos. Escriba /help para el uso adecuado
+tile.ender_chest.name=Cofre de Ender
