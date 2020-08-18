@@ -38,7 +38,7 @@ public class GuiEvents {
     public static void onRenderPlayer(final RenderPlayerEvent.Pre event) throws InvocationTargetException, IllegalAccessException {
         String playerName = event.getEntityPlayer().getGameProfile().getName();
         String localName = ClientHelper.mc.player.getGameProfile().getName();
-        if (!localName.equals(playerName) && GuiHandler.chatMap.containsKey(playerName) && !TeamConfig.client.disableChatBubble) {
+        if (!localName.equals(playerName) && GuiHandler.chatMap.containsKey(playerName) && !TeamConfig.common.disableChatBubble && !ConfigHelper.serverDisableBubble) {
             String text = GuiHandler.chatMap.get(playerName).first();
             long tick = GuiHandler.chatMap.get(playerName).second();
             if ((ClientHelper.ticks - tick) < 200) {

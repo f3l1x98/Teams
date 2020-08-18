@@ -75,7 +75,10 @@ class TeamEvents {
             String teamName = StorageHelper.getTeam(event.getPlayer().getUniqueID());
             if (teamName != null) {
                 TextComponentString prefix = new TextComponentString("[" + teamName + "] ");
-                event.setComponent(prefix.appendSibling(event.getComponent()));
+                TextComponentString message = new TextComponentString(event.getUsername() + ": ");
+                message.appendSibling(new TextComponentString(event.getMessage()));
+                prefix.appendSibling(message);
+                event.setComponent(prefix);
             }
         }
     }

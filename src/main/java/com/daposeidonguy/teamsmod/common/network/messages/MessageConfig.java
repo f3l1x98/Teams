@@ -15,6 +15,7 @@ public class MessageConfig extends AbstractMessage {
         tag.setBoolean("disableDeathSound", TeamConfig.common.disableDeathSound);
         tag.setBoolean("disableCompass", TeamConfig.server.forceDisableCompass);
         tag.setBoolean("disableStatus", TeamConfig.server.forceDisableStatus);
+        tag.setBoolean("disableBubble", TeamConfig.common.disableChatBubble);
     }
 
     public static class MessageHandler implements IMessageHandler<MessageConfig, IMessage> {
@@ -26,6 +27,7 @@ public class MessageConfig extends AbstractMessage {
                 ConfigHelper.serverDisableDeathSound = message.tag.getBoolean("disableDeathSound");
                 ConfigHelper.serverDisableCompass = message.tag.getBoolean("disableCompass");
                 ConfigHelper.serverDisableStatus = message.tag.getBoolean("disableStatus");
+                ConfigHelper.serverDisableBubble = message.tag.getBoolean("disableBubble");
             });
             return null;
         }

@@ -15,8 +15,6 @@ public class TeamConfig {
         public boolean smallIcon;
         @Config.Comment("Uses alternate position for button to open Teams GUI")
         public boolean useAlternatePosition;
-        @Config.Comment("Disables chat bubbles from rendering")
-        public boolean disableChatBubble;
         @Config.Comment("Disables status overlay from rendering")
         public boolean disableStatusOverlay;
         @Config.Comment("Disables compass overlay from rendering")
@@ -30,6 +28,8 @@ public class TeamConfig {
         public boolean disablePrefix;
         @Config.Comment("Disables death sound when teammate dies")
         public boolean disableDeathSound;
+        @Config.Comment("Disables chat bubbles from rendering")
+        public boolean disableChatBubble;
     }
 
     public static class ServerConfig {

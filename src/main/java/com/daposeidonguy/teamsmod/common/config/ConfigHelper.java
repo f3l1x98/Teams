@@ -15,6 +15,7 @@ public class ConfigHelper {
     public static boolean serverDisablePing = false;
     public static boolean serverDisableStatus = false;
     public static boolean serverDisableCompass = false;
+    public static boolean serverDisableBubble = false;
 
     @SubscribeEvent
     public void onConfigUpdate(ConfigChangedEvent.OnConfigChangedEvent event) {
